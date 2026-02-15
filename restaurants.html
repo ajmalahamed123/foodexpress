@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants - FoodieExpress</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .restaurant-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .restaurant-card:hover {
+            transform: scale(1.05);
+            /* Hover zoom effect */
+        }
+
+        .restaurant-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .restaurant-info {
+            padding: 1.5rem;
+        }
+
+        .rating {
+            color: #f1c40f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">FoodieExpress</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="restaurants.html" class="active">Restaurants</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="offers.html">Offers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
+        </ul>
+        <div class="hamburger">☰</div>
+    </nav>
+
+    <div class="container">
+        <h1>Popular Restaurants</h1>
+        <div class="restaurant-grid">
+            <!-- 1. Saravana Bhavan -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=saravana'">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Saravana Bhavan" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Saravana Bhavan</h3>
+                    <p>South Indian, Vegetarian</p>
+                    <p class="rating">★ 4.5</p>
+                </div>
+            </div>
+            <!-- 2. Dindigul Thalappakatti -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=thalappakatti'">
+                <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Thalappakatti" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Dindigul Thalappakatti</h3>
+                    <p>Biryani, Non-Veg</p>
+                    <p class="rating">★ 4.7</p>
+                </div>
+            </div>
+            <!-- 3. Adyar Ananda Bhavan (A2B) -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=a2b'">
+                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="A2B" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Adyar Ananda Bhavan</h3>
+                    <p>Sweets, Snacks, Veg</p>
+                    <p class="rating">★ 4.4</p>
+                </div>
+            </div>
+            <!-- 4. Junior Kuppanna -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=junior'">
+                <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Junior Kuppanna" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Junior Kuppanna</h3>
+                    <p>Kongu Side, Non-Veg</p>
+                    <p class="rating">★ 4.6</p>
+                </div>
+            </div>
+            <!-- 5. Murugan Idli Shop -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=murugan'">
+                <img src="https://images.unsplash.com/photo-1589301760557-adca89024840?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Murugan Idli Shop" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Murugan Idli Shop</h3>
+                    <p>South Indian, Breakfast</p>
+                    <p class="rating">★ 4.8</p>
+                </div>
+            </div>
+            <!-- 6. Sangeetha Veg Restaurant -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=sangeetha'">
+                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Sangeetha" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Sangeetha Veg</h3>
+                    <p>South & North Indian</p>
+                    <p class="rating">★ 4.3</p>
+                </div>
+            </div>
+            <!-- 7. Ambur Star Briyani -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=ambur'">
+                <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Ambur Star" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Ambur Star Briyani</h3>
+                    <p>Authentic Biryani</p>
+                    <p class="rating">★ 4.8</p>
+                </div>
+            </div>
+            <!-- 8. Ponnusamy Hotel -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=ponnusamy'">
+                <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Ponnusamy" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Ponnusamy Hotel</h3>
+                    <p>Chettinad, Non-Veg</p>
+                    <p class="rating">★ 4.2</p>
+                </div>
+            </div>
+            <!-- 9. Annapoorna Gowrishankar -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=annapoorna'">
+                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Annapoorna" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Annapoorna</h3>
+                    <p>Coimbatore Special, Veg</p>
+                    <p class="rating">★ 4.9</p>
+                </div>
+            </div>
+            <!-- 10. Ratna Cafe -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=ratna'">
+                <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Ratna Cafe" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Ratna Cafe</h3>
+                    <p>Sambar Idli, South Indian</p>
+                    <p class="rating">★ 4.5</p>
+                </div>
+            </div>
+            <!-- 11. Buhari Hotel -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=buhari'">
+                <img src="https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Buhari" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Buhari Hotel</h3>
+                    <p>Chicken 65 Origin, Non-Veg</p>
+                    <p class="rating">★ 4.4</p>
+                </div>
+            </div>
+            <!-- 12. Cream Centre -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=cream'">
+                <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Cream Centre" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Cream Centre</h3>
+                    <p>Pure Veg, Channa Bhatura</p>
+                    <p class="rating">★ 4.6</p>
+                </div>
+            </div>
+            <!-- 13. Madurai Kumar Mess -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=kumar'">
+                <img src="https://images.unsplash.com/photo-1606491956689-2ea28c6746ed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Kumar Mess" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Madurai Kumar Mess</h3>
+                    <p>Madurai Style, Non-Veg</p>
+                    <p class="rating">★ 4.8</p>
+                </div>
+            </div>
+            <!-- 14. Salem RR Biryani -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=salem'">
+                <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Salem RR" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Salem RR Biryani</h3>
+                    <p>Traditional Biryani</p>
+                    <p class="rating">★ 4.3</p>
+                </div>
+            </div>
+            <!-- 15. Sri Krishna Sweets -->
+            <div class="restaurant-card" onclick="window.location.href='menu.html?id=krishna'">
+                <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Sri Krishna Sweets" class="restaurant-img">
+                <div class="restaurant-info">
+                    <h3>Sri Krishna Sweets</h3>
+                    <p>Mysurpa, Snacks</p>
+                    <p class="rating">★ 4.9</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 FoodieExpress. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

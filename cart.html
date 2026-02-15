@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - FoodieExpress</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .cart-table th,
+        .cart-table td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .bill-details {
+            margin-top: 2rem;
+            background: white;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            max-width: 400px;
+            margin-left: auto;
+        }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.3rem;
+            border-top: 2px solid #333;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">FoodieExpress</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="restaurants.html">Restaurants</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="offers.html">Offers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html" class="active">Cart <span class="cart-count">0</span></a></li>
+        </ul>
+        <div class="hamburger">☰</div>
+    </nav>
+
+    <div class="container">
+        <h1>Your Cart</h1>
+        <div id="cart-content">
+            <!-- Cart Items Rendered Here -->
+        </div>
+
+        <div id="bill-section" style="display: none;">
+            <div class="bill-details">
+                <h3>Bill Summary</h3>
+                <div class="bill-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="bill-row">
+                    <span>Tax (10%)</span>
+                    <span id="tax">₹0.00</span>
+                </div>
+                <div class="bill-row total">
+                    <span>Total</span>
+                    <span id="total">₹0.00</span>
+                </div>
+                <br>
+                <button class="btn" style="width: 100%;" onclick="window.location.href='payment.html'">Checkout</button>
+                <br><br>
+                <button class="btn" style="width: 100%; background: #999;" onclick="clearCart()">Clear Cart</button>
+            </div>
+        </div>
+
+        <div id="empty-msg" style="text-align: center; margin-top: 3rem; display: none;">
+            <h2>Your cart is empty!</h2>
+            <br>
+            <a href="menu.html" class="btn">Browse Menu</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 FoodieExpress. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function renderCart() {
+            const cartContent = document.getElementById('cart-content');
+            const billSection = document.getElementById('bill-section');
+            const emptyMsg = document.getElementById('empty-msg');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            if (cart.length === 0) {
+                cartContent.innerHTML = '';
+                billSection.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                return;
+            }
+
+            emptyMsg.style.display = 'none';
+            billSection.style.display = 'block';
+
+            let html = `
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                subtotal += item.price;
+                html += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>₹${item.price.toFixed(2)}</td>
+                        <td><button class="btn" style="background:#dc3545; padding: 5px 10px;" onclick="removeFromCart(${index})">Remove</button></td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            cartContent.innerHTML = html;
+
+            // Calculations
+            const tax = subtotal * 0.10;
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('tax').innerText = `₹${tax.toFixed(2)}`;
+            document.getElementById('total').innerText = `₹${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCart();
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            updateCartCount();
+            renderCart();
+        }
+
+        // Render on load
+        renderCart();
+    </script>
+</body>
+
+</html>

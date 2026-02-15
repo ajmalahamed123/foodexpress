@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offers - FoodieExpress</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .offer-card {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            color: #333;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .offer-code {
+            background: white;
+            padding: 0.5rem 1rem;
+            border: 2px dashed var(--primary-color);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">FoodieExpress</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="restaurants.html">Restaurants</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="offers.html" class="active">Offers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
+        </ul>
+        <div class="hamburger">☰</div>
+    </nav>
+
+    <div class="container">
+        <h1>Current Offers</h1>
+        <br>
+        <div class="offer-card">
+            <div>
+                <h2>50% OFF First Order</h2>
+                <p>Get flat 50% discount on your very first order with us!</p>
+            </div>
+            <div class="offer-code">WELCOME50</div>
+        </div>
+
+        <div class="offer-card" style="background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);">
+            <div>
+                <h2>Free Delivery</h2>
+                <p>Free delivery on all orders above ₹500.</p>
+            </div>
+            <div class="offer-code" style="border-color: #2980b9; color: #2980b9;">FREEDEL</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 FoodieExpress. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

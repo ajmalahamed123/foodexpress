@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - FoodieExpress</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .payment-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .payment-method {
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .payment-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .payment-header input {
+            margin-right: 10px;
+        }
+
+        .payment-body {
+            padding: 1rem;
+            display: none;
+            border-top: 1px solid #ddd;
+        }
+
+        .payment-body.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .upi-apps {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .upi-app {
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .summary-total {
+            font-size: 1.5rem;
+            text-align: right;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">FoodieExpress</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="restaurants.html">Restaurants</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="offers.html">Offers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Cart <span class="cart-count">0</span></a></li>
+        </ul>
+        <div class="hamburger">☰</div>
+    </nav>
+
+    <div class="container">
+        <h1>Secure Payment</h1>
+
+        <div class="payment-container">
+            <!-- Delivery Details Section -->
+            <h2 style="margin-bottom: 1.5rem;">Delivery Details</h2>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="cust-name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="cust-phone" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+                <label>Delivery Address</label>
+                <textarea id="cust-address" rows="3" placeholder="Enter full address"
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required></textarea>
+                <button type="button" class="btn"
+                    style="background-color: #2ecc71; margin-top: 10px; font-size: 0.9rem;"
+                    onclick="detectLocation()">📍 Detect Location</button>
+            </div>
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ddd;">
+
+            <h2 style="margin-bottom: 1.5rem;">Select Payment Method</h2>
+
+            <!-- Cards -->
+            <div class="payment-method">
+                <div class="payment-header" onclick="selectMethod('card')">
+                    <input type="radio" name="payment" id="card" checked>
+                    <label for="card">Credit / Debit Card</label>
+                </div>
+                <div class="payment-body active" id="card-body">
+                    <div class="form-group">
+                        <input type="text" placeholder="Card Number" maxlength="16">
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" placeholder="MM/YY" style="flex: 1;">
+                        <input type="text" placeholder="CVV" maxlength="3" style="flex: 1;">
+                    </div>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <input type="text" placeholder="Card Holder Name">
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPI -->
+            <div class="payment-method">
+                <div class="payment-header" onclick="selectMethod('upi')">
+                    <input type="radio" name="payment" id="upi">
+                    <label for="upi">UPI</label>
+                </div>
+                <div class="payment-body" id="upi-body">
+                    <div class="form-group">
+                        <input type="text" placeholder="Enter UPI ID (e.g. name@okhdfc)">
+                    </div>
+                    <div class="upi-apps">
+                        <div class="upi-app">GPay</div>
+                        <div class="upi-app">PhonePe</div>
+                        <div class="upi-app">Paytm</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COD -->
+            <div class="payment-method">
+                <div class="payment-header" onclick="selectMethod('cod')">
+                    <input type="radio" name="payment" id="cod">
+                    <label for="cod">Cash on Delivery</label>
+                </div>
+                <div class="payment-body" id="cod-body">
+                    <p>Pay cash at your doorstep.</p>
+                </div>
+            </div>
+
+            <div class="summary-total" id="pay-total">Total: ₹0.00</div>
+            <button class="btn" style="width: 100%; margin-top: 1rem; padding: 15px; font-size: 1.2rem;"
+                onclick="processPayment()">Pay Now</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 FoodieExpress. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function selectMethod(method) {
+            document.querySelectorAll('.payment-body').forEach(el => el.classList.remove('active'));
+            document.getElementById(method + '-body').classList.add('active');
+            document.getElementById(method).checked = true;
+        }
+
+        function loadTotal() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let subtotal = 0;
+            cart.forEach(item => subtotal += item.price);
+            const tax = subtotal * 0.10;
+            const total = subtotal + tax;
+            document.getElementById('pay-total').innerText = `Total: ₹${total.toFixed(2)}`;
+        }
+
+        function detectLocation() {
+            const addressField = document.getElementById('cust-address');
+            if (navigator.geolocation) {
+                addressField.placeholder = "Detecting location...";
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Use OpenStreetMap Nominatim API for reverse geocoding
+            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const address = data.display_name;
+                    document.getElementById('cust-address').value = address;
+                })
+                .catch(error => {
+                    document.getElementById('cust-address').value = `Lat: ${lat}, Long: ${lon}`;
+                    alert("Could not fetch address details. Coordinates detected.");
+                });
+        }
+
+        function showError(error) {
+            const addressField = document.getElementById('cust-address');
+            addressField.placeholder = "Enter full address manually";
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        function processPayment() {
+            // Validation
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !phone || !address) {
+                alert('Please fill in all delivery details (Name, Phone, Address) before paying.');
+                return;
+            }
+
+            if (phone.length < 10) {
+                alert('Please enter a valid phone number.');
+                return;
+            }
+
+            // Simulate payment processing
+            const btn = document.querySelector('.btn');
+            btn.innerHTML = 'Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                alert(`Order Placed Successfully!\n\nDeliver to: ${name}\nAddress: ${address}\n\nThank you for ordering with FoodieExpress!`);
+                localStorage.removeItem('cart');
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+
+        loadTotal();
+    </script>
+</body>
+
+</html>
